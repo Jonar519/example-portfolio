@@ -1,9 +1,5 @@
-import { getDictionary } from "../i18n/dictionaries";
-import { Lang, languages } from "../i18n/config";
-import Header from "@/components/Header";
-import MainContent from "@/components/MainContent";
-
-interface Dictionary {
+// types/dictionary.ts
+export interface Dictionary {
   intro: string;
   sections: {
     interests: {
@@ -48,24 +44,4 @@ interface Dictionary {
     editingTools: string;
     languages: string;
   };
-}
-
-export async function generateStaticParams() {
-  return languages.map((lang) => ({ lang }));
-}
-
-export default async function Home({
-  params,
-}: {
-  params: Promise<{ lang: Lang }>;
-}) {
-  const { lang } = await params;
-  const dict = await getDictionary(lang) as Dictionary;
-
-  return (
-    <div className="font-sans flex justify-center bg-background dark:bg-background-dark min-h-screen transition-colors duration-300">
-      <Header currentLang={lang} />
-      <MainContent dict={dict} />
-    </div>
-  );
 }
